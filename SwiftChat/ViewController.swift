@@ -26,12 +26,12 @@ class ViewController: UIViewController, UITableViewDelegate {
     refreshControl.addTarget(self, action: #selector(ViewController.refreshTable), forControlEvents: .ValueChanged)
     tableView.addSubview(refreshControl)
     
+    advertiseSwitch.setOn(false, animated: false)
     advertiseSwitch.addTarget(self,
                               action: #selector(ViewController.updateAdvertise),
                               forControlEvents: .ValueChanged)
     
     mpcManager.browser.startBrowsingForPeers()
-    mpcManager.advertiser.startAdvertisingPeer()
   }
 
   
