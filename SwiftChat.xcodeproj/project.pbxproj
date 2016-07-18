@@ -12,7 +12,8 @@
 		24332B541D39268200C38DF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24332B521D39268200C38DF6 /* Main.storyboard */; };
 		24332B561D39268200C38DF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24332B551D39268200C38DF6 /* Assets.xcassets */; };
 		24332B591D39268200C38DF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24332B571D39268200C38DF6 /* LaunchScreen.storyboard */; };
-		24332B641D39268200C38DF6 /* SwiftChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24332B631D39268200C38DF6 /* SwiftChatTests.swift */; };
+		24332B6F1D392BE300C38DF6 /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24332B6E1D392BE300C38DF6 /* MPCManager.swift */; };
+		24332B711D39590500C38DF6 /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24332B701D39590500C38DF6 /* ViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,8 +35,9 @@
 		24332B581D39268200C38DF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		24332B5A1D39268200C38DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24332B5F1D39268200C38DF6 /* SwiftChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		24332B631D39268200C38DF6 /* SwiftChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftChatTests.swift; sourceTree = "<group>"; };
 		24332B651D39268200C38DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		24332B6E1D392BE300C38DF6 /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
+		24332B701D39590500C38DF6 /* ViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				24332B4E1D39268200C38DF6 /* AppDelegate.swift */,
 				24332B501D39268200C38DF6 /* ViewController.swift */,
+				24332B6E1D392BE300C38DF6 /* MPCManager.swift */,
 				24332B521D39268200C38DF6 /* Main.storyboard */,
 				24332B551D39268200C38DF6 /* Assets.xcassets */,
 				24332B571D39268200C38DF6 /* LaunchScreen.storyboard */,
@@ -90,8 +93,8 @@
 		24332B621D39268200C38DF6 /* SwiftChatTests */ = {
 			isa = PBXGroup;
 			children = (
-				24332B631D39268200C38DF6 /* SwiftChatTests.swift */,
 				24332B651D39268200C38DF6 /* Info.plist */,
+				24332B701D39590500C38DF6 /* ViewControllerTests.swift */,
 			);
 			path = SwiftChatTests;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 				TargetAttributes = {
 					24332B4A1D39268200C38DF6 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 5J68VQM656;
 					};
 					24332B5E1D39268200C38DF6 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -199,6 +203,7 @@
 			files = (
 				24332B511D39268200C38DF6 /* ViewController.swift in Sources */,
 				24332B4F1D39268200C38DF6 /* AppDelegate.swift in Sources */,
+				24332B6F1D392BE300C38DF6 /* MPCManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,7 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24332B641D39268200C38DF6 /* SwiftChatTests.swift in Sources */,
+				24332B711D39590500C38DF6 /* ViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,10 +332,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SwiftChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Chexology.SwiftChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SamGalizia.SwiftChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -338,10 +346,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SwiftChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Chexology.SwiftChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SamGalizia.SwiftChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
