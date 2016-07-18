@@ -39,10 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func applicationWillTerminate(application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    
-    // Make sure to stop advertising and browsing
-    MPCManager.sharedInstance.advertiser.stopAdvertisingPeer()
-    MPCManager.sharedInstance.browser.stopBrowsingForPeers()
   }
 
 

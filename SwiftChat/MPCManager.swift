@@ -13,14 +13,15 @@ class MPCManager: NSObject {
   var foundPeers: [MCPeerID]!
   var browser: MCNearbyServiceBrowser!
   var advertiser: MCNearbyServiceAdvertiser!
-  var peerID: MCPeerID = MCPeerID(displayName: UIDevice.currentDevice().name)
+  var peerID: MCPeerID = MCPeerID(displayName: UIDevice.currentDevice().name) // In production this could be the kiosk number or UUID
   var discoveryInfo: [String : String]? = nil
   var serviceType = "swift-chat"
   var session: MCSession?
   
   static let sharedInstance = MPCManager()
   
-  private override init() {
+  private override init()
+  {
     super.init()
     
     foundPeers = []
@@ -30,6 +31,12 @@ class MPCManager: NSObject {
     browser.delegate = self
     advertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: discoveryInfo, serviceType: serviceType)
     advertiser.delegate = self
+  }
+  
+  deinit
+  {
+    browser.stopBrowsingForPeers()
+    advertiser.stopAdvertisingPeer()
   }
 }
 
