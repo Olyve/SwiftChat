@@ -8,18 +8,72 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDelegate {
+  
+  @IBOutlet weak var advertiseSwitch: UISwitch!
+  @IBOutlet weak var tableView: UITableView!
+  
+  let mpcManager = MPCManager.sharedInstance
+  let refreshControl = UIRefreshControl()
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    tableView.delegate = self
+    tableView.dataSource = self
+    
+    refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh")
+    refreshControl.addTarget(self, action: #selector(ViewController.refreshTable), forControlEvents: .ValueChanged)
+    tableView.addSubview(refreshControl)
+    
+    advertiseSwitch.addTarget(self,
+                              action: #selector(ViewController.updateAdvertise),
+                              forControlEvents: .ValueChanged)
+    
+    mpcManager.browser.startBrowsingForPeers()
+    mpcManager.advertiser.startAdvertisingPeer()
   }
 
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-
-
+  
 }
 
+// MARK: - Helpers
+extension ViewController {
+  func updateAdvertise()
+  {
+    if advertiseSwitch.on {
+      mpcManager.advertiser.startAdvertisingPeer()
+    }
+    else {
+      mpcManager.advertiser.stopAdvertisingPeer()
+    }
+  }
+  
+  func refreshTable()
+  {
+    tableView.reloadData()
+    refreshControl.endRefreshing()
+  }
+}
+
+// MARK: - UITableViewDataSource
+extension ViewController: UITableViewDataSource {
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int
+  {
+    return 1
+  }
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+  {
+    return mpcManager.foundPeers.count
+  }
+  
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+  {
+    let cell = tableView.dequeueReusableCellWithIdentifier("peerCell", forIndexPath: indexPath) as UITableViewCell
+    
+    cell.textLabel?.text = mpcManager.foundPeers[indexPath.row].displayName
+    
+    return cell
+  }
+}
