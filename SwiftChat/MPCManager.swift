@@ -13,10 +13,15 @@ class MPCManager: NSObject {
   var foundPeers: [MCPeerID]!
   var browser: MCNearbyServiceBrowser!
   var advertiser: MCNearbyServiceAdvertiser!
-  var peerID: MCPeerID = MCPeerID(displayName: UIDevice.currentDevice().name) // In production this could be the kiosk number or UUID
+  var peerID: MCPeerID!
   var discoveryInfo: [String : String]? = nil
   var serviceType = "swift-chat"
-  var session: MCSession?
+  
+  lazy var session: MCSession = {
+    let session = MCSession(peer: self.peerID, securityIdentity: nil, encryptionPreference: .Required)
+    session.delegate = self
+    return session
+  }()
   
   static let sharedInstance = MPCManager()
   
@@ -24,9 +29,9 @@ class MPCManager: NSObject {
   {
     super.init()
     
+    // In production this could be the kiosk number or UUID
+    peerID = MCPeerID(displayName: UIDevice.currentDevice().name)
     foundPeers = []
-    session = MCSession(peer: peerID)
-    session?.delegate = self
     browser = MCNearbyServiceBrowser(peer: peerID, serviceType: serviceType)
     browser.delegate = self
     advertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: discoveryInfo, serviceType: serviceType)
@@ -45,6 +50,7 @@ extension MPCManager: MCNearbyServiceAdvertiserDelegate {
   func advertiser(advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void)
   {
     print("Received invitation from: \(peerID)")
+    invitationHandler(true, self.session)
   }
 }
 
