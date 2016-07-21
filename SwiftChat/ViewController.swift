@@ -2,17 +2,18 @@
 //  ViewController.swift
 //  SwiftChat
 //
-//  Created by chexology on 7/15/16.
+//  Created by Sam Galizia on 7/15/16.
 //  Copyright © 2016 Chexology. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate {
+class ViewController: UIViewController {
   
   @IBOutlet weak var advertiseSwitch: UISwitch!
   @IBOutlet weak var tableView: UITableView!
   
+  // Set a variable equal to the sharedInstance
   let mpcManager = MPCManager.sharedInstance
   let refreshControl = UIRefreshControl()
 
@@ -31,6 +32,7 @@ class ViewController: UIViewController, UITableViewDelegate {
                               action: #selector(ViewController.updateAdvertise),
                               forControlEvents: .ValueChanged)
     
+    // Start browsing when view has loaded
     mpcManager.browser.startBrowsingForPeers()
   }
 
@@ -39,6 +41,7 @@ class ViewController: UIViewController, UITableViewDelegate {
 
 // MARK: - Helpers
 extension ViewController {
+  // Handles starting and stopping advertising of the peer based on the switch
   func updateAdvertise()
   {
     if advertiseSwitch.on {
@@ -75,5 +78,17 @@ extension ViewController: UITableViewDataSource {
     cell.textLabel?.text = mpcManager.foundPeers[indexPath.row].displayName
     
     return cell
+  }
+}
+
+extension ViewController: UITableViewDelegate {
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+  {
+    let selectedPeer =  mpcManager.foundPeers[indexPath.row]
+    
+    mpcManager.browser.invitePeer(selectedPeer,
+                                  toSession: mpcManager.session,
+                                  withContext: nil,
+                                  timeout: 10)
   }
 }
