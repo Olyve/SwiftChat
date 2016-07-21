@@ -10,12 +10,12 @@ import Foundation
 import MultipeerConnectivity
 
 class MPCManager: NSObject {
-  var foundPeers: [MCPeerID]!
-  var browser: MCNearbyServiceBrowser!
-  var advertiser: MCNearbyServiceAdvertiser!
-  var peerID: MCPeerID!
-  var discoveryInfo: [String : String]? = nil
-  var serviceType = "swift-chat"
+  let peerID = MCPeerID(displayName: UIDevice.currentDevice().name)
+  let serviceType = "swift-chat" // Change for app
+  let discoveryInfo: [String : String]? = nil
+  var foundPeers: [MCPeerID] = []
+  var browser = MCNearbyServiceBrowser()
+  var advertiser = MCNearbyServiceAdvertiser()
   
   lazy var session: MCSession = {
     let session = MCSession(peer: self.peerID, securityIdentity: nil, encryptionPreference: .Required)
@@ -29,8 +29,6 @@ class MPCManager: NSObject {
   {
     super.init()
     
-    // In production this could be the kiosk number or UUID
-    peerID = MCPeerID(displayName: UIDevice.currentDevice().name)
     foundPeers = []
     browser = MCNearbyServiceBrowser(peer: peerID, serviceType: serviceType)
     browser.delegate = self
