@@ -14,7 +14,7 @@ class ViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   
   // Set a variable equal to the sharedInstance
-  let mpcManager = MPCManager.sharedInstance
+  let mpcManager = MPCManager(serviceType: "swift-chat", peerDisplayName: UIDevice.currentDevice().name)
   let refreshControl = UIRefreshControl()
 
   override func viewDidLoad() {
@@ -87,7 +87,7 @@ extension ViewController: UITableViewDelegate {
     let selectedPeer =  mpcManager.foundPeers[indexPath.row]
     
     mpcManager.browser.invitePeer(selectedPeer,
-                                  toSession: mpcManager.session,
+                                  toSession: mpcManager.sessionManager.session,
                                   withContext: nil,
                                   timeout: 10)
   }
